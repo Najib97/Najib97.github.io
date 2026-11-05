@@ -8,7 +8,7 @@
 <meta property="og:title" content="NaJiB. — Produk" />
 <meta property="og:description" content="Dompetku, catatan keuangan PWA, dan FlipClock, jam flip clock untuk Windows." />
 <meta property="og:image" content="https://najib97.github.io/Dompetku-App/images/dashboard-gelap.webp" />
-<meta name="theme-color" content="#12110f" />
+<meta name="theme-color" content="#0d2240" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500..700&display=swap" rel="stylesheet" />
@@ -21,21 +21,23 @@
   })();
 </script>
 <style>
-  /* Token warna & font = portofolio (najib-id.vercel.app): kertas & tinta hangat, satu aksen oranye */
+  /* Palet "Cetak Biru" — sama dengan Dompetku & FlipClock (gelap = biru blueprint, terang = kertas grid) */
   :root, :root[data-theme="dark"] {
-    --bg: #12110f; --bg-alt: #1a1916; --surface: #1a1916;
-    --text: #ece6da; --text-muted: #a39d90;
-    --rule: rgba(236,230,218,.14); --rule-strong: rgba(236,230,218,.32);
-    --accent: #ff6b3d; --accent-ink: #12110f; --accent-soft: rgba(255,107,61,.12);
-    --nav-bg: rgba(18,17,15,.92); --line-soft: rgba(236,230,218,.4);
+    --bg: #0d2240; --bg-alt: #122b4e; --surface: #122b4e;
+    --text: #e4eefa; --text-muted: #a9beda;
+    --rule: rgba(228,238,250,.14); --rule-strong: rgba(228,238,250,.32);
+    --accent: #1fb2ec; --accent-ink: #062240; --accent-soft: rgba(31,178,236,.14);
+    --nav-bg: rgba(13,34,64,.9); --line-soft: rgba(124,196,255,.45);
+    --grid: rgba(255,255,255,.055); --grid-major: rgba(255,255,255,.09);
     color-scheme: dark;
   }
   :root[data-theme="light"] {
-    --bg: #f2ede3; --bg-alt: #e9e2d4; --surface: #f7f3eb;
-    --text: #1b1a17; --text-muted: #5f5a51;
-    --rule: rgba(27,26,23,.14); --rule-strong: rgba(27,26,23,.4);
-    --accent: #d9480f; --accent-ink: #f7f3eb; --accent-soft: rgba(217,72,15,.1);
-    --nav-bg: rgba(242,237,227,.94); --line-soft: rgba(27,26,23,.45);
+    --bg: #f2f6fa; --bg-alt: #e7eef6; --surface: #ffffff;
+    --text: #10233f; --text-muted: #3d5577;
+    --rule: rgba(16,35,63,.14); --rule-strong: rgba(16,35,63,.4);
+    --accent: #1e5aa8; --accent-ink: #ffffff; --accent-soft: rgba(30,90,168,.1);
+    --nav-bg: rgba(242,246,250,.92); --line-soft: rgba(16,35,63,.45);
+    --grid: rgba(30,90,168,.07); --grid-major: rgba(30,90,168,.12);
     color-scheme: light;
   }
   :root {
@@ -50,7 +52,7 @@
     --max: 1120px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font: 17px/1.7 var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: background-color .4s, color .4s; }
+  body { background: linear-gradient(var(--grid-major) 1px, transparent 1px) 0 0 / 120px 120px, linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) 0 0 / 120px 120px, linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 24px 24px, var(--bg); color: var(--text); font: 17px/1.7 var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: background-color .4s, color .4s; }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
