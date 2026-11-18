@@ -1,0 +1,171 @@
+/* =========================================================================
+   NaJiB Blueprint — satu tema untuk najib97.github.io (hub) & semua landing produk
+   (Dompetku, dst). Dipakai lewat <link rel="stylesheet" href="https://najib97.github.io/ui/najib.css">.
+   Tema terang/gelap disimpan di localStorage "theme" (domain sama → pilihan ikut di semua halaman).
+   ========================================================================= */
+
+/* ---------- token: gelap (bawaan) ---------- */
+:root, :root[data-theme="dark"] {
+  --bg: #0d2240; --bg-2: #122b4e; --bg-3: #18355d;
+  --line: #2b4a75; --line-soft: rgba(124,196,255,.45);
+  --grid: rgba(255,255,255,.055); --grid-major: rgba(255,255,255,.09);
+  --text: #e4eefa; --text-2: #a9beda; --muted: #8199be;
+  --accent: #1fb2ec; --accent-soft: rgba(31,178,236,.14); --accent-ink: #062240; --chalk: #7cc4ff;
+  --income: #6ee7b7; --expense: #ff8a8a; --saving: #c4b5fd;
+  --gold: #f5b50a; --gold-2: #ffe08a; --gold-ink: #3a2600;
+  --glass: rgba(13,34,64,.72); --card: rgba(18,43,78,.85); --card-solid: rgba(18,43,78,.97);
+  --shadow: rgba(3,10,24,.6);
+  /* nama yang dipakai hub */
+  --bg-alt: var(--bg-2); --surface: var(--bg-2); --text-muted: var(--text-2);
+  --rule: rgba(228,238,250,.14); --rule-strong: rgba(228,238,250,.32); --nav-bg: rgba(13,34,64,.86);
+  color-scheme: dark;
+}
+
+/* ---------- token: terang (kertas grid biru) ---------- */
+:root[data-theme="light"] {
+  --bg: #f2f6fa; --bg-2: #ffffff; --bg-3: #e7eef6;
+  --line: #c3d3e6; --line-soft: rgba(16,35,63,.4);
+  --grid: rgba(30,90,168,.07); --grid-major: rgba(30,90,168,.12);
+  --text: #10233f; --text-2: #3d5577; --muted: #5d7395;
+  --accent: #1e5aa8; --accent-soft: rgba(30,90,168,.1); --accent-ink: #ffffff; --chalk: #10233f;
+  --income: #0f7a55; --expense: #c0392b; --saving: #6d28d9;
+  --gold: #c98a00; --gold-2: #f5b50a; --gold-ink: #2a1c00;
+  --glass: rgba(242,246,250,.86); --card: rgba(255,255,255,.92); --card-solid: #ffffff;
+  --shadow: rgba(16,35,63,.18);
+  --bg-alt: var(--bg-3); --surface: #ffffff; --text-muted: var(--text-2);
+  --rule: rgba(16,35,63,.14); --rule-strong: rgba(16,35,63,.4); --nav-bg: rgba(242,246,250,.92);
+  color-scheme: light;
+}
+
+/* ---------- huruf (sama dengan aplikasi Dompetku) ---------- */
+:root {
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --font-hand: "Architects Daughter", "Segoe Print", cursive;
+  --font-logo: "Instrument Serif", Georgia, serif;
+  /* alias nama lama di landing produk */
+  --head: var(--font-display); --mono: var(--font-mono); --hand: var(--font-hand); --logo: var(--font-logo);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+body { transition: background-color .4s, color .4s; }
+
+/* ---------- logo bersambung: NaJiB. / Produk. ---------- */
+.nj-crumb { display: inline-flex; align-items: center; gap: 10px; font: 400 26px/1 var(--font-logo); letter-spacing: -.01em; color: var(--text); text-decoration: none; }
+.nj-crumb img { width: 30px; height: 30px; border-radius: 8px; view-transition-name: nj-logo; }
+.nj-crumb .nj-home { color: var(--text-2); transition: color .2s; }
+.nj-crumb .nj-home:hover { color: var(--accent); }
+.nj-crumb .nj-sep { color: var(--line); font-family: var(--font-mono); font-size: 18px; }
+.nj-crumb b, .nj-crumb span.dot { color: var(--accent); font-weight: 400; }
+@media (max-width: 520px) { .nj-crumb .nj-home, .nj-crumb .nj-sep { display: none; } }
+
+/* ---------- tombol ganti tema ---------- */
+.nj-toggle { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 1.5px solid var(--rule-strong); border-radius: 12px; background: none; color: var(--text); cursor: pointer; transition: border-color .2s, color .2s, transform .3s var(--ease-out); }
+.nj-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.nj-toggle:active { transform: rotate(-20deg) scale(.94); }
+.nj-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nj-toggle svg { width: 18px; height: 18px; }
+[data-theme="dark"] .nj-toggle .i-moon, [data-theme="light"] .nj-toggle .i-sun { display: none; }
+
+/* ---------- transisi antar halaman (Chrome/Edge; browser lain langsung pindah) ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: nj-keluar .28s ease both; }
+::view-transition-new(root) { animation: nj-masuk .45s var(--ease-out) both; }
+@keyframes nj-keluar { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes nj-masuk { from { opacity: 0; transform: translateY(12px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* =========================================================================
+   BLUEPRINT REFINED — lapisan rapi & modern (dimuat SETELAH gaya halaman)
+   sudut rapi, garis tipis solid, grid halus; doodle & tulisan tangan TETAP dipertahankan
+   ========================================================================= */
+:root {
+  --r-sm: 10px; --r: 14px; --r-lg: 20px;
+  /* sudut "coretan tangan" lama → sudut rapi */
+  --sketch: var(--r-lg); --w1: var(--r-lg); --w2: var(--r-lg); --w3: var(--r);
+}
+:root, :root[data-theme="dark"] { --grid: rgba(255,255,255,.035); --grid-major: rgba(255,255,255,.065); }
+:root[data-theme="light"] { --grid: rgba(30,90,168,.05); --grid-major: rgba(30,90,168,.09); }
+body {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, var(--accent-soft), transparent 60%),
+    linear-gradient(var(--grid-major) 1px, transparent 1px) 0 0 / 128px 128px,
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) 0 0 / 128px 128px,
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--bg);
+  background-attachment: fixed, scroll, scroll, scroll, scroll, scroll;
+}
+
+
+
+/* navigasi kaca */
+nav { background: var(--glass) !important; backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid transparent; }
+nav.scrolled { border-bottom-color: var(--rule) !important; }
+
+/* tombol */
+.btn { border-radius: var(--r) !important; }
+.btn-primary, .btn-main {
+  background: var(--accent) !important; color: var(--accent-ink) !important; border: 1px solid transparent !important;
+  box-shadow: 0 10px 24px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.25) !important;
+  transition: transform .2s var(--ease-out), box-shadow .2s, filter .2s !important;
+}
+.btn-primary:hover, .btn-main:hover { transform: translateY(-2px) !important; translate: none !important; filter: brightness(1.06); box-shadow: 0 16px 30px -12px var(--accent), inset 0 1px 0 rgba(255,255,255,.25) !important; }
+.btn-primary:active, .btn-main:active { transform: translateY(0) !important; }
+.btn-ghost, .btn-line {
+  background: var(--card) !important; color: var(--text) !important; border: 1px solid var(--line) !important; box-shadow: none !important;
+  transition: transform .2s var(--ease-out), border-color .2s, background .2s !important;
+}
+.btn-ghost:hover, .btn-line:hover { border-color: var(--accent) !important; transform: translateY(-2px) !important; translate: none !important; }
+.btn-wa { border-radius: var(--r) !important; border: 1px solid transparent !important; box-shadow: 0 10px 24px -10px #25d366 !important; }
+.btn-sm { border-radius: var(--r-sm) !important; }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* kartu: garis tipis, bayangan lembut, naik saat hover */
+.card, .plan, .product .shot, .shot, .wa-card, .soon, .pwa-explain, .pro-note, .testi {
+  border-radius: var(--r-lg) !important;
+}
+.card {
+  background: var(--card) !important; border: 1px solid var(--line) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 18px 40px -28px var(--shadow);
+  transition: transform .3s var(--ease-out), border-color .3s, box-shadow .3s !important;
+}
+.card:hover { transform: translateY(-4px) !important; border-color: color-mix(in srgb, var(--accent) 55%, var(--line)) !important; box-shadow: 0 24px 50px -28px var(--shadow); }
+.plan.feat:hover { transform: translateY(-4px) !important; }
+
+/* garis putus-putus → garis tipis solid */
+.eyebrow, .pwa-explain, .soon, .chip { border-style: solid !important; }
+.log > li { border-left-style: solid !important; }
+.about dl div { border-bottom-style: solid !important; }
+.eyebrow { background: var(--card) !important; border-color: var(--line) !important; border-radius: 99px !important; }
+.pwa-explain, .soon { background: var(--card) !important; border: 1px solid var(--line) !important; }
+.chip { border-radius: 99px !important; border-width: 1px !important; }
+
+/* screenshot di hub & landing: rata, sudut rapi */
+.shot { rotate: none !important; border: 1px solid var(--line) !important; box-shadow: 0 30px 60px -30px var(--shadow) !important; }
+.shot:hover { translate: none !important; }
+.phone, .st-phone { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)) !important; }
+.phone { box-shadow: 0 40px 90px -30px var(--shadow), 0 0 0 1px rgba(255,255,255,.04) !important; }
+.st-phone { rotate: 4deg; }
+
+/* kaca latar di landing produk (dulu warna navy keras) */
+.chip-float { background: var(--card) !important; border-color: var(--line-soft) !important; color: var(--text); }
+.pwa-badge { border-radius: var(--r) !important; background: var(--card) !important; }
+.mode-toggle, .tabs { border-radius: 99px; }
+.tab { border-radius: 99px !important; }
+
+/* judul bagian */
+.s-head h2, .sec-head h2, h1 { letter-spacing: -.035em; }
+.label { letter-spacing: .16em; }
+
+/* tema terang: perbaikan kontras elemen yang dulu khusus gelap */
+:root[data-theme="light"] .plan.feat { background: linear-gradient(var(--card-solid), var(--card-solid)) padding-box, conic-gradient(from var(--sudut, 0deg), #f5b50a, #ffe08a, #1e5aa8, #f5b50a 60%, #e29a00, #f5b50a) border-box !important; }
+:root[data-theme="light"] .hero-promo { background: linear-gradient(100deg, rgba(245,181,10,.16), var(--card) 60%) !important; }
+:root[data-theme="light"] .fd { background: #10233f; }
+
+/* doodle tetap: ornamen & catatan tangan memakai warna tema */
+.orn { color: var(--muted); }
+.orn.acc, .note, .phone-note { color: var(--accent); }
